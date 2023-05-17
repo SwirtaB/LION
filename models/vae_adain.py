@@ -115,6 +115,7 @@ class Model(nn.Module):
         z = self.style_encoder(enc_input) 
         z_mu, z_sigma = z['mu_1d'], z['sigma_1d'] # log_sigma
         dist = Normal(mu=z_mu, log_sigma=z_sigma)  # (B, F)
+        #TODO Wydaje się, że dict jest tym co nas interesuje
         return dist 
 
     def global2style(self, style): ##, cls_emb=None):
@@ -132,6 +133,7 @@ class Model(nn.Module):
         z_mu, z_sigma = z['mu_1d'], z['sigma_1d'] # log_sigma
         z_sigma = z_sigma - self.args.shapelatent.log_sigma_offset 
         dist = Normal(mu=z_mu, log_sigma=z_sigma)  # (B, F)
+        #TODO Wydaje się, że dict jest tym co nas interesuje
         return dist 
 
     def recont(self, x, target=None, class_label=None, cls_emb=None):
