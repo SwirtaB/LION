@@ -72,6 +72,10 @@ class Model(nn.Module):
         z = self.style_encoder(enc_input) 
         z_mu, z_sigma = z['mu_1d'], z['sigma_1d'] # log_sigma
         dist = Normal(mu=z_mu, log_sigma=z_sigma)  # (B, F)
+
+        #FIXME Check if this is correct place
+        logger.debug(f'Generated in encode (global style encoder). x: {x}, result: {dist}')
+
         z_global = dist.sample()[0] 
         all_eps.append(z_global) 
         all_log_q.append(dist.log_p(z_global)) 
@@ -84,6 +88,10 @@ class Model(nn.Module):
         z_mu, z_sigma = z['mu_1d'], z['sigma_1d']
         z_sigma = z_sigma - self.args.shapelatent.log_sigma_offset 
         dist = Normal(mu=z_mu, log_sigma=z_sigma)  # (B, F)
+
+        #FIXME Check if this is correct place
+        logger.debug(f'Generated in encode (original encoder). x: {x}, result: {dist}')
+
         z_local = dist.sample()[0] 
         all_eps.append(z_local) 
         all_log_q.append(dist.log_p(z_local)) 
@@ -115,7 +123,8 @@ class Model(nn.Module):
         z = self.style_encoder(enc_input) 
         z_mu, z_sigma = z['mu_1d'], z['sigma_1d'] # log_sigma
         dist = Normal(mu=z_mu, log_sigma=z_sigma)  # (B, F)
-        #TODO Wydaje się, że dict jest tym co nas interesuje
+        #FIXME Check if this is correct place
+        logger.debug(f'Generated in encode_global. x: {x}, result: {dist}')
         return dist 
 
     def global2style(self, style): ##, cls_emb=None):
@@ -133,7 +142,8 @@ class Model(nn.Module):
         z_mu, z_sigma = z['mu_1d'], z['sigma_1d'] # log_sigma
         z_sigma = z_sigma - self.args.shapelatent.log_sigma_offset 
         dist = Normal(mu=z_mu, log_sigma=z_sigma)  # (B, F)
-        #TODO Wydaje się, że dict jest tym co nas interesuje
+        #FIXME Check if this is correct place
+        logger.debug(f'Generated in encode_local. x: {x}, result: {dist}')
         return dist 
 
     def recont(self, x, target=None, class_label=None, cls_emb=None):
