@@ -123,8 +123,10 @@ class Model(nn.Module):
         z = self.style_encoder(enc_input) 
         z_mu, z_sigma = z['mu_1d'], z['sigma_1d'] # log_sigma
         dist = Normal(mu=z_mu, log_sigma=z_sigma)  # (B, F)
+
         #FIXME Check if this is correct place
         logger.debug(f'Generated in encode_global. x: {x}, result: {dist}')
+        
         return dist 
 
     def global2style(self, style): ##, cls_emb=None):
@@ -142,8 +144,10 @@ class Model(nn.Module):
         z_mu, z_sigma = z['mu_1d'], z['sigma_1d'] # log_sigma
         z_sigma = z_sigma - self.args.shapelatent.log_sigma_offset 
         dist = Normal(mu=z_mu, log_sigma=z_sigma)  # (B, F)
+
         #FIXME Check if this is correct place
         logger.debug(f'Generated in encode_local. x: {x}, result: {dist}')
+
         return dist 
 
     def recont(self, x, target=None, class_label=None, cls_emb=None):
