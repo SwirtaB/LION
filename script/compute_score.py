@@ -11,7 +11,7 @@ from utils.eval_helper import compute_score
 # samples = sys.argv[1]
 # ref = sys.argv[2]
 
-samples = './lion_ckpt/unconditional/car/samples.pt'
+samples = './lion_ckpt/unconditional/epoch_1999_iters_75999.pt'
 ref = './datasets/test_data/ref_val_car.pt'
 compute_score(samples, ref_name=ref, norm_box=False)
 """
@@ -22,9 +22,9 @@ will get:
 [Test] JsnShnDis | 0.009229 
 """
 
-samples = './lion_ckpt/unconditional/chair/samples.pt'
-ref = './datasets/test_data/ref_val_chair.pt'
-compute_score(samples, ref_name=ref, norm_box=False)
+#samples = './lion_ckpt/unconditional/chair/samples.pt'
+#ref = './datasets/test_data/ref_val_chair.pt'
+#compute_score(samples, ref_name=ref, norm_box=False)
 """
 [Test] MinMatDis | CD 0.002643 | EMD 0.015516
 [Test] Coverage | CD 0.489426 | EMD 0.521148
@@ -32,9 +32,9 @@ compute_score(samples, ref_name=ref, norm_box=False)
 [Test] JsnShnDis | 0.013535
 """
 
-samples = './lion_ckpt/unconditional/chair/samples.pt'
-ref = './datasets/test_data/ref_val_chair.pt'
-compute_score(samples, ref_name=ref, norm_box=False)
+#samples = './lion_ckpt/unconditional/chair/samples.pt'
+#ref = './datasets/test_data/ref_val_chair.pt'
+#compute_score(samples, ref_name=ref, norm_box=False)
 """
 [Test] MinMatDis | CD 0.000221 | EMD 0.003706
 [Test] Coverage | CD 0.471605 | EMD 0.496296
