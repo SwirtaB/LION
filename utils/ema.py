@@ -31,7 +31,8 @@ import os
 class EMA(Optimizer):
     def __init__(self, opt, ema_decay):
         self.ema_decay = ema_decay
-        self.apply_ema = self.ema_decay > 0.
+        self.apply_ema=False
+        # self.apply_ema = self.ema_decay > 0.
         logger.info('[EMA] apply={}', self.apply_ema)
         self.optimizer = opt
         self.state = opt.state
