@@ -74,7 +74,7 @@ class Model(nn.Module):
         dist = Normal(mu=z_mu, log_sigma=z_sigma)  # (B, F)
 
         #FIXME Check if this is correct place
-        logger.debug(f'Generated in encode (global style encoder). x: {x}, result: {dist}')
+        logger.info(f'Generated in encode (global style encoder). x: {x}, result: {dist}')
 
         z_global = dist.sample()[0] 
         all_eps.append(z_global) 
@@ -90,7 +90,7 @@ class Model(nn.Module):
         dist = Normal(mu=z_mu, log_sigma=z_sigma)  # (B, F)
 
         #FIXME Check if this is correct place
-        logger.debug(f'Generated in encode (original encoder). x: {x}, result: {dist}')
+        logger.info(f'Generated in encode (original encoder). x: {x}, result: {dist}')
 
         z_local = dist.sample()[0] 
         all_eps.append(z_local) 
@@ -125,7 +125,7 @@ class Model(nn.Module):
         dist = Normal(mu=z_mu, log_sigma=z_sigma)  # (B, F)
 
         #FIXME Check if this is correct place
-        logger.debug(f'Generated in encode_global. x: {x}, result: {dist}')
+        logger.info(f'Generated in encode_global. x: {x}, result: {dist}')
         
         return dist 
 
@@ -146,7 +146,7 @@ class Model(nn.Module):
         dist = Normal(mu=z_mu, log_sigma=z_sigma)  # (B, F)
 
         #FIXME Check if this is correct place
-        logger.debug(f'Generated in encode_local. x: {x}, result: {dist}')
+        logger.info(f'Generated in encode_local. x: {x}, result: {dist}')
 
         return dist 
 
