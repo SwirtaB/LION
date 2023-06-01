@@ -10,7 +10,7 @@
     require diffusers-0.11.1
 """
 import os
-import clip
+#import clip
 import torch
 from PIL import Image
 from default_config import cfg as config
@@ -18,8 +18,8 @@ from models.lion import LION
 from utils.vis_helper import plot_points
 from huggingface_hub import hf_hub_download 
 
-model_path = './lion_ckpt/text2shape/chair/checkpoints/model.pt'
-model_config = './lion_ckpt/text2shape/chair/cfg.yml'
+model_path = './lion_ckpt/exp/0316/car/0c1ea7h_hvae_lion_B32/checkpoints/epoch_1999_iters_75999.pt'
+model_config = './lion_ckpt/exp/0316/car/0c1ea7h_hvae_lion_B32/cfg.yml'
 
 config.merge_from_file(model_config)
 lion = LION(config)
