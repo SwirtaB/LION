@@ -174,6 +174,7 @@ class Model(nn.Module):
         all_eps.append(z_local) 
         all_log_q.append(dist.log_p(z_local)) 
         latent_list.append( [z_local, z_mu, z_sigma] )
+        print(f'SHAPE_LOCAL: {z_local.shape}\n SHAPE_STYLE {style.shape}')
 
         # ---- decoder ---- #
         x_0_pred = self.decoder(None, beta=None, context=z_local, style=style) # (B,ncenter,3) 
@@ -303,22 +304,26 @@ class Model(nn.Module):
         """ currently not support the samples of local level 
         Return: 
             model_output: [B,N,D]
-        """ 
+        """
         batch_size = num_samples 
         center_emd = None 
         if 'LatentPoint' in self.args.shapelatent.decoder_type:
             # Latent Point Model: latent shape; B; ND 
             latent_shape = (num_samples, self.num_points*(self.latent_dim+self.input_dim))
+            print(f'LATENT_SHAPE: {latent_shape}')
             style_latent_shape = (num_samples, self.args.latent_pts.style_dim) 
+            print(f'STYLE_LATENT_SHAPE: {style_latent_shape}')
         else:
             raise NotImplementedError 
 
         if len(decomposed_eps) == 0:
+            print('DEC=0')
             z_local = torch.zeros(*latent_shape).to(
                 torch.device(device_str)).normal_()
             z_global = torch.zeros(*style_latent_shape).to(
                 torch.device(device_str)).normal_()
         else:
+            print('DEC=1')
             z_global = decomposed_eps[0] 
             z_local = decomposed_eps[1]
 
@@ -330,6 +335,8 @@ class Model(nn.Module):
         x_0_pred = self.decoder(None, beta=None, 
                 context=z_local, style=z_global) # (B,ncenter,3) 
         ## CHECKSIZE(x_0_pred, (batch_size,self.num_points,[3,6])) 
+        print(f'LOCAL: {z_local.shape}')
+        print(f'GLOBAL: {z_global.shape}')
         return x_0_pred 
 
     def latent_shape(self):
