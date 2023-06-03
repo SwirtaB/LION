@@ -1,6 +1,7 @@
 __pycache__/
 *__pycache__
 .idea/
+.vscode
 *.pyc
 *.m
 .ipynb_checkpoints
@@ -12,3 +13,4 @@ models/pvcnn/functional/build/
 lion_ckpt
 data/
 datasets/test_data
+results

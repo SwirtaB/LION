@@ -9,6 +9,9 @@
 # ---------------------------------------------------------------
 
 
+#"ddpm.model_var_type \"fixedlarge\" data.batch_size_test 3 ddpm.ema 1 num_val_samples 3"
+
+
 from third_party.yacs_config import CfgNode as CN
 
 cfg = CN()
@@ -29,7 +32,7 @@ cfg.weight_recont = 1.0
 # vae ckpt
 # lns
 cfg.use_checkpoint = 0
-cfg.num_val_samples = 16  # 24 #12
+cfg.num_val_samples = 1 #16  # 24 #12
 
 # config for pointtransformer
 cfg.eval = CN()
@@ -264,8 +267,8 @@ cfg.data.cates = 'chair'  # data category
 cfg.data.tr_max_sample_points = 2048
 cfg.data.te_max_sample_points = 2048
 cfg.data.data_dir = "data/ShapeNetCore.v2.PC15k"  # depreciated
-cfg.data.batch_size = 12
-cfg.data.batch_size_test = 10
+cfg.data.batch_size = 1 #12
+cfg.data.batch_size_test = 1 #10
 cfg.data.dataset_scale = 1
 # -- the following option in terms of normalization should turn into string -- #
 cfg.data.normalize_per_shape = False

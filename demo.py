@@ -10,7 +10,7 @@
     require diffusers-0.11.1
 """
 import os
-#import clip
+import clip
 import torch
 from PIL import Image
 from default_config import cfg as config
