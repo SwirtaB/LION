@@ -26,6 +26,7 @@ from utils.data_helper import normalize_point_clouds
 from utils.eval_helper import compute_NLL_metric
 from utils.utils import AvgrageMeter
 import clip
+import json
 
 class BaseTrainer(ABC):
     def __init__(self, cfg, args):
@@ -441,6 +442,25 @@ class BaseTrainer(ABC):
         ##    writer.add_image('ref', grid, 0)
         # logger.info(writer.url)
         ##    logger.info('save vis at {}', path)
+
+        # GET LATENTS
+        self.model.eval()
+        latent_data = {'names' : [], 'raw_data' : [], 'style_latents' : [], 'local_latents' : [], 'eps' : []}
+        for data in self.test_loader:
+            latent_data['names'].append(data['mid'].pop().replace('val/', ''))
+            latent_data['raw_data'].append(data['tr_points'].tolist().pop())
+            eps, _, latent_list = self.model.encode(data['tr_points'].to(device))
+            latent_data['style_latents'].append(latent_list[0][0].tolist().pop())
+            latent_data['local_latents'].append(latent_list[1][0].tolist().pop())
+            latent_data['eps'].append(eps.tolist().pop())
+        
+        file_handler = open('latents_results.json', 'w')
+        json.dump(latent_data, file_handler)
+        # file_handler.write('names,raw_data,style_latents,local_latents,eps\n')
+        # for row in latent_data:
+        #     file_handler.write(f'{row["names"]},{row["raw_data"]},{row["style_latents"]},{row["local_latents"]},{row["eps"]}')
+        file_handler.close()
+        print(f'---------LATENTS DUMP FINISHED---------')
 
         # ---- gen_pcs ---- #
         if True:

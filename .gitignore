@@ -14,3 +14,6 @@ lion_ckpt
 data/
 datasets/test_data
 results
+
+#to big file
+latents_results.json

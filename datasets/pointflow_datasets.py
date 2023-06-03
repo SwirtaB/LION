@@ -425,6 +425,9 @@ def get_data_loaders(cfg, args):
         kwargs['shuffle'] = True
     if args.eval_trainnll:
         kwargs['shuffle'] = False
+    
+    #FIXME only for simple latent retrival
+    cfg.batch_size_test = 1
     train_loader = data.DataLoader(dataset=tr_dataset,
                                    batch_size=cfg.batch_size,
                                    num_workers=cfg.num_workers,

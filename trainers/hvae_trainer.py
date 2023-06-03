@@ -190,9 +190,6 @@ class Trainer(BaseTrainer):
         if self.cfg.ddpm.ema:
             self.optimizer.swap_parameters_with_ema(store_params_in_ema=True)
         self.model.eval()
-        # x = next(iter(self.train_loader))
-        # print(x['input_pts'])
-        # print(x['mid'])
         # ---- forward sampling ---- #
         gen_x = self.model.sample(
             num_samples=num_shapes, device_str=self.device_str)
